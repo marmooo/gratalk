@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="ja">
+  <head prefix="og: http://ogp.me/ns#">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="ネコでもできる英会話アプリ(初級)です。小中学校の内容を学ぶのにぴったりです。">
+    <title>Gratalk</title>
+    <meta property="og:title" content="Gratalk">
+    <meta property="og:site_name" content="Gratalk">
+    <meta property="og:description" content="ネコでもできる英会話アプリ(初級)です。小中学校の内容を学ぶのにぴったりです。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://marmooo.github.io/gratalk/">
+    <meta property="og:image" content="https://marmooo.github.io/gratalk/favicon/apple-touch-icon.png">
+    <meta name="twitter:card" content="summary">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-142997649-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-142997649-1');
+    </script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('/gratalk/sw.js');
+        });
+      }
+    </script>
+    <link rel="icon" type="image/png" href="/gratalk/favicon/favicon.png">
+    <link rel="icon" type="image/svg+xml" href="/gratalk/favicon/favicon.svg">
+    <link rel="apple-touch-icon" sizes="180x180" href="/gratalk/favicon/apple-touch-icon.png">
+    <link rel="manifest" href="/gratalk/favicon/site.webmanifest">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <style>
+      html,body { height:100%; }
+      #counter {
+        font-size:10rem; width:12rem; height:12rem; line-height:12rem; border-radius: 50%;
+        background:tomato; margin:auto; }
+      #typePanel { word-wrap: break-word; }
+      #sentencesPanel { height:50vh; overflow-y:scroll; }
+      @media screen and (max-width: 567.98px) {
+        img.mobile-3 { width:30%; }
+        #sentencesPanel { height:25vh; }
+      }
+      html[data-theme="dark"] { filter: invert(1) hue-rotate(180deg); }
+      @-moz-document url-prefix() { html[data-theme="dark"] { background-color:black; } }
+      html[data-theme="dark"] img { filter: invert(1) hue-rotate(180deg); }
+    </style>
+    <script data-ad-client="ca-pub-6459713332128733" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body>
+    <header id="header">
+      <nav class="navbar navbar-expand navbar-light">
+        <div class="container flex-wrap">
+          <a class="navbar-brand" href="/gratalk/">
+            <img alt="Gratalk" src="/gratalk/favicon/favicon.svg" width="32" height="32">
+            Gratalk
+          </a>
+          <div class="navbar-nav">
+            <button title="音楽を再生" id="toggleBGM" class="btn p-0 ms-1">
+              <svg id="bgmOn" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+              <svg id="bgmOff" class="d-none" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M4.27 3L3 4.27l9 9v.28c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4v-1.73L19.73 21 21 19.73 4.27 3zM14 7h4V3h-6v5.18l2 2z"/></svg>
+            </button>
+            <button title="ダークモード切替" id="toggleDarkMode" class="fs-4 btn p-0 ms-1">🌓</button>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main id="container" class="container">
+      <noscript>
+        <div class="alert alert-warning">JavaScript を ON にしてください</div>
+      </noscript>
+      <div id="noTTS" class="alert alert-warning d-none">
+        <p>お使いのブラウザは音声読み上げに対応していません。
+        Firefox for Linux は発話モジュールをインストールしてください。例:
+        </p>
+        <pre><code>sudo apt install speech-dispatcher
+sudo apt install festival speech-dispatcher-festival</code></pre>
+      </div>
+      <div id="noSTT" class="alert alert-warning d-none">
+        お使いのブラウザは音声認識に対応していません。
+      </div>
+      <div id="infoPanel">
+        <div class="row">
+          <div class="col-md">
+            <p>ネコでもできる英会話アプリ(初級)です。</p>
+            <p>小中学校の内容を学ぶのにぴったりです。
+            日常会話(中級) は <a href="https://marmooo.github.io/speecha/">Speecha</a> を利用ください。
+            </p>
+            <h6>注意点</h6>
+            <p>日本の人名/地名の採点はきびしいです。</p>
+          </div>
+          <div class="col-md text-center">
+            <div class="alert alert-info">
+              <div class="d-flex flex-wrap justify-content-center">
+                <div class="h5 text-nowrap me-4">
+                  <label><ruby>時間<rp>(</rp><rt>じかん</rt><rp>)</rp></ruby>:</label>
+                  <span id="time" class="ms-1">180 / 180秒</span>
+                </div>
+                <div class="d-flex flex-wrap">
+                  <button class="btn btn-secondary btn-sm"
+                    data-bs-toggle="collapse" data-bs-target="#courseOption"
+                    aria-expanded="false" aria-controls="courseOption">コース
+                  </button>
+                </div>
+              </div>
+              <div class="mt-2">
+                <button id="startButton" class="btn btn-lg btn-primary">スタート</button>
+                <button id="skipButton" class="btn btn-lg btn-secondary">スキップ</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <form id="courseOption" class="mb-3 p-2 text-center border rounded collapse">
+        <label class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="radio" value="I-am" checked>I am
+        </label>
+        <label class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="radio" value="You-are">You are
+        </label>
+        <label class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="radio" value="It-is">This/That/It is
+        </label>
+        <label class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="radio" value="He-is">He/She is
+        </label>
+        <label class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="radio" value="まとめ1-1">まとめ1-1
+        </label>
+        <label class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="radio" value="疑問文">疑問文
+        </label>
+        <label class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="radio" value="What-is">What is?
+        </label>
+        <label class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="radio" value="形容詞">形容詞
+        </label>
+        <label class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="radio" value="動詞">動詞
+        </label>
+        <label class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="radio" value="まとめ1-2">まとめ1-2
+        </label>
+        <label class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="radio" value="複数形">複数形
+        </label>
+        <label class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="radio" value="3人称単数">3人称単数
+        </label>
+        <label class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="radio" value="代名詞">代名詞
+        </label>
+        <label class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="radio" value="5W1H">5W1H
+        </label>
+        <label class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="radio" value="まとめ1-3">まとめ1-3
+        </label>
+        <label class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="radio" value="現在進行形">現在進行形
+        </label>
+        <label class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="radio" value="過去形-規則動詞">過去形(規則動詞)
+        </label>
+        <label class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="radio" value="過去形-不規則動詞">過去形(不規規則動詞)
+        </label>
+        <label class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="radio" value="can">can
+        </label>
+        <label class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="radio" value="まとめ1-4">まとめ1-4
+        </label>
+      </form>
+      <div>
+        <div id="countPanel" class="text-center" hidden>
+          <div id="counter"></div>
+          <img alt="" src="/gratalk/img/cat8.webp" width="150" height="150">
+        </div>
+        <div id="scorePanel" class="text-center pb-3" hidden>
+          <table class="table table-striped w-auto mx-auto">
+            <tbody id="result"></tbody>
+          </table>
+          <div class="text-center py-3">
+            <h2>クリア数: <span id="score"></span> / <span id="problemCount"></span></h2>
+          </div>
+        </div>
+        <div id="playPanel">
+          <div class="row">
+            <div class="col-sm-4 text-center">
+              <img alt="" id="cat" src="/gratalk/img/cat8.webp" class="img-fluid mobile-3" width="300" height="300">
+            </div>
+            <div id="sentencesPanel" class="col-sm-8">
+              <div id="guide" class="card">
+                <div class="card-header">
+                  <span>一緒に英会話しようにゃん！</span>
+                </div>
+                <div class="card-body">
+                  <img alt="voice" class="voice" src="/gratalk/voice.svg" width="16" height="16" role="button">
+                  <span>Let's have an English conversation with me!</span>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header">
+                  <span>3分でどれだけ話せるかにゃん？</span>
+                </div>
+                <div class="card-body">
+                  <img alt="voice" class="voice" src="/gratalk/voice.svg" width="16" height="16" role="button">
+                  <span>How much can you talk in 3 minutes?</span>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header">
+                  <span>初めての人は EASY モードがおすすめだにゃ！</span>
+                </div>
+                <div class="card-body">
+                  <img alt="voice" class="voice" src="/gratalk/voice.svg" width="16" height="16" role="button">
+                  <span>EASY mode is recommended for first-time users.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="recognitionPanel" class="text-center pt-4">
+          <span id="reply" class="pe-3 h5">英語でまねよう</span>
+          <button id="startVoiceInput" title="音声入力を開始する" class="btn btn-outline-secondary rounded-pill">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000" width="64" height="64"><path d="M0 0h24v24H0z" fill="none"></path><path d="M12 14c1.66.0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"></path></svg>
+          </button>
+          <button id="stopVoiceInput" title="音声入力を終了する" class="btn btn-outline-secondary rounded-pill d-none">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="64" height="64"><path d="M0 0h24v24H0zm0 0h24v24H0z" fill="none"></path><path d="M19 11h-1.7c0 .74-.16 1.43-.43 2.05l1.23 1.23c.56-.98.9-2.09.9-3.28zm-4.02.17c0-.06.02-.11.02-.17V5c0-1.66-1.34-3-3-3S9 3.34 9 5v.18l5.98 5.99zM4.27 3 3 4.27l6.01 6.01V11c0 1.66 1.33 3 2.99 3 .22.0.44-.03.65-.08l1.66 1.66c-.71.33-1.5.52-2.31.52-2.76.0-5.3-2.1-5.3-5.1H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c.91-.13 1.77-.45 2.54-.9L19.73 21 21 19.73 4.27 3z"></path></svg>
+          </button>
+        </div>
+      </div>
+    </main>
+    <footer class="pt-4 alert text-center">
+      <div class="table-responsive">
+        <label>サポート状況 (2022):</label>
+        <table class="table table-sm table-striped w-auto m-auto text-nowrap">
+          <tbody>
+            <tr><th></th><th>Chrome</th><th>Edge</th><th>Safari</th><th>Firefox</th></tr>
+            <tr><td>音声認識</td><td>○</td><td>×</td><td>×</td><td>×</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pt-3">
+        <a class="px-1" href="/">Home</a>
+        <a class="px-1" href="/terms/">Terms</a>
+        <a class="px-1" href="https://github.com/marmooo/gratalk">Contact</a>
+      </div>
+      <div class="text-muted">&copy; <a href="https://github.com/marmooo">marmooo</a>
+      </div>
+    </footer>
+    <template id="talk-box">
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+      <div class="card">
+        <div class="card-header">
+          <span class="ja"></span>
+        </div>
+        <div class="card-body">
+          <div>
+            <img class="voice" src="/gratalk/voice.svg" width="16" height="16" role="button">
+            <span class="en"></span>
+          </div>
+          <div class="answer"></div>
+        </div>
+      </div>
+    </template>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/number-to-words@1.2.4/numberToWords.min.js" integrity="sha256-bF9oeWiE8to8fibxuuEYTgMOlixsP+xI/yOidsBSQkk=" crossorigin="anonymous"></script>
+    <script src="index.js"></script>
+  </body>
+</html>
