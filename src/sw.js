@@ -1,7 +1,8 @@
-var CACHE_NAME = '2022-04-02 13:40';
+var CACHE_NAME = '2022-04-02 13:50';
 var urlsToCache = [
   "/gratalk/",
   "/gratalk/index.js",
+  "/gratalk/words.lst",
   "/gratalk/mp3/bgm.mp3",
   "/gratalk/mp3/cat.mp3",
   "/gratalk/mp3/correct.mp3",
