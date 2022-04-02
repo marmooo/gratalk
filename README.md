@@ -11,7 +11,7 @@ licensed under the [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 ## Build
 
 ```
-node build.js
+deno run --allow-read --allow-write build.js
 bash build.sh
 ```
 
