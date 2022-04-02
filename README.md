@@ -5,13 +5,13 @@
 ## Installation
 
 install
-[marmooo/graded-enja-corpus](https://github.com/marmooo/graded-enja-corpus)
-licensed under the
-[CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+[marmooo/google-ngram-small-en](https://github.com/marmooo/graded-enja-corpus)
+licensed under the [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 
 ## Build
 
 ```
+node build.js
 bash build.sh
 ```
 

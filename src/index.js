@@ -12,6 +12,10 @@ bgm.loop = true;
 let answer = "Let's imitate in english!";
 let correctCount = 0;
 let errorCount = 0;
+const whiteList = new Map();
+whiteList.set("mr.", true);
+whiteList.set("ms.", true);
+whiteList.set("mt.", true);
 let problems = [];
 let englishVoices = [];
 const voiceInput = setVoiceInput();
@@ -309,11 +313,16 @@ const abbrevs2 = {
   "mustn't": "must not",
 };
 
-// TODO: 郵便番号が失敗しているかも？
 function formatSentence(sentence) {
-  // ,.!? は音声入力されない / されにくいので無視
-  // face-to-face のような - はスペース区切りに変換
-  sentence = sentence.toLowerCase().replace(/[,.!?]/g, "").replace(/-/g, " ");
+  // 音声入力では文頭/文末の大文字小文字が不安定なので小文字に統一
+  sentence = sentence.toLowerCase();
+  // 音声入力では文末の ,.!? が入力されにくく邪魔なので除去
+  if (/[,.!?]/.test(sentence.slice(-1))) {
+    sentence = sentence.slice(0, -1);
+  }
+  // TODO: 郵便番号が失敗するかも？
+  // face-to-face のような - は不安定なのでスペース区切りに統一
+  sentence = sentence.replace(/-/g, " ");
   // 典型的な短縮形は原形に変換
   sentence = sentence.split(" ").map((word) => {
     // 数字は英単語列に変換
@@ -336,7 +345,40 @@ function formatSentence(sentence) {
     }
     return word;
   }).join(" ");
+  // 認識の難しい固有名詞を除去
+  // 大文字小文字が不安定なので、頻度の高い単語だけを認識対象にする
+  // 未知語を X などに変換する方法は、長い単語がうまく動かない
+  if (document.getElementById("mode").textContent == "EASY") {
+    sentence = sentence.split(/[,.!?]/)
+      .map((s) => {
+        const words = s.split(/\s/);
+        return words.map((word) => {
+          if (whiteList.get(word)) {
+            return word;
+          } else {
+            return "X";
+          }
+        }).join(" ");
+      })
+      .flat().join(" ");
+  }
   return sentence;
+}
+
+function isEqual(formattedReply, formattedAnswer) {
+  const arr1 = formattedReply.split(" ");
+  const arr2 = formattedAnswer.split(" ");
+  arr2.forEach((word, i) => {
+    if (word == "X") {
+      arr1[i] = "X";
+    }
+  });
+  console.log([arr1, arr2]);
+  if (arr1.every((x, i) => x == arr2[i])) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 function setVoiceInput() {
@@ -359,7 +401,7 @@ function setVoiceInput() {
       document.getElementById("reply").textContent = reply;
       const formattedReply = formatSentence(reply);
       const formattedAnswer = formatSentence(answer);
-      if (formattedReply == formattedAnswer) {
+      if (isEqual(formattedReply, formattedAnswer)) {
         correctCount += 1;
         if (navigator.onLine) {
           const img = document.getElementById("cat");
@@ -394,12 +436,33 @@ function stopVoiceInput() {
   voiceInput.stop();
 }
 
+function changeMode() {
+  if (this.textContent == "EASY") {
+    this.textContent = "HARD";
+  } else {
+    this.textContent = "EASY";
+  }
+}
+
+function loadWhiteList() {
+  fetch(`words.lst`)
+    .then((response) => response.text())
+    .then((text) => {
+      text.trimEnd().split("\n").forEach((word) => {
+        whiteList.set(word, true);
+      });
+    });
+}
+
+loadWhiteList();
+
 [...document.getElementsByClassName("voice")].forEach((e) => {
   e.onclick = function () {
     const en = this.nextElementSibling.textContent;
     speak(en);
   };
 });
+document.getElementById("mode").onclick = changeMode;
 startButton.addEventListener("click", startGame);
 skipButton.addEventListener("click", skipSentence);
 document.getElementById("toggleDarkMode").onclick = toggleDarkMode;
