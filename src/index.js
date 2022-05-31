@@ -1,3 +1,5 @@
+const replyPlease = document.getElementById("replyPlease");
+const reply = document.getElementById("reply");
 const playPanel = document.getElementById("playPanel");
 const countPanel = document.getElementById("countPanel");
 const scorePanel = document.getElementById("scorePanel");
@@ -235,6 +237,8 @@ function countdown() {
 }
 
 function skipSentence() {
+  replyPlease.classList.remove("d-none");
+  reply.classList.add("d-none");
   const topSentence =
     document.getElementById("sentencesPanel").firstElementChild;
   if (topSentence.id != "guide") {
@@ -256,10 +260,9 @@ function startGame() {
 function startTypeTimer() {
   const timeNode = document.getElementById("time");
   typeTimer = setInterval(function () {
-    const arr = timeNode.textContent.split("秒 /");
-    const t = parseInt(arr[0]);
+    const t = parseInt(timeNode.textContent);
     if (t > 0) {
-      timeNode.textContent = (t - 1) + "秒 /" + arr[1];
+      timeNode.textContent = t - 1;
     } else {
       clearInterval(typeTimer);
       bgm.pause();
@@ -273,8 +276,7 @@ function startTypeTimer() {
 }
 
 function initTime() {
-  document.getElementById("time").textContent = gameTime + "秒 / " + gameTime +
-    "秒";
+  document.getElementById("time").textContent = gameTime;
 }
 
 function scoring() {
@@ -396,9 +398,9 @@ function setVoiceInput() {
       }
     };
     voiceInput.onresult = (event) => {
-      const reply = event.results[0][0].transcript;
-      document.getElementById("reply").textContent = reply;
-      const formattedReply = formatSentence(reply);
+      const replyText = event.results[0][0].transcript;
+      document.getElementById("reply").textContent = replyText;
+      const formattedReply = formatSentence(replyText);
       const formattedAnswer = formatSentence(answer);
       if (isEqual(formattedReply, formattedAnswer)) {
         correctCount += 1;
@@ -409,6 +411,8 @@ function setVoiceInput() {
         playAudio(correctAudio);
         nextProblem();
       }
+      replyPlease.classList.add("d-none");
+      reply.classList.remove("d-none");
       voiceInput.stop();
     };
     return voiceInput;
@@ -423,7 +427,6 @@ function voiceInputOnStart() {
 function voiceInputOnStop() {
   document.getElementById("startVoiceInput").classList.remove("d-none");
   document.getElementById("stopVoiceInput").classList.add("d-none");
-  document.getElementById("reply").textContent = "英語でまねよう";
 }
 
 function startVoiceInput() {
@@ -461,9 +464,9 @@ loadWhiteList();
     speak(en);
   };
 });
-document.getElementById("mode").onclick = changeMode;
 startButton.addEventListener("click", startGame);
 skipButton.addEventListener("click", skipSentence);
+document.getElementById("mode").onclick = changeMode;
 document.getElementById("toggleDarkMode").onclick = toggleDarkMode;
 document.getElementById("toggleBGM").onclick = toggleBGM;
 document.getElementById("startVoiceInput").onclick = startVoiceInput;

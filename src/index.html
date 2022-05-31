@@ -93,9 +93,9 @@ sudo apt install festival speech-dispatcher-festival</code></pre>
           <div class="col-md text-center">
             <div class="alert alert-info">
               <div class="d-flex flex-wrap justify-content-center">
-                <div class="h5 text-nowrap me-4">
-                  <label><ruby>時間<rp>(</rp><rt>じかん</rt><rp>)</rp></ruby>:</label>
-                  <span id="time" class="ms-1">180 / 180秒</span>
+                <div class="h5 text-nowrap me-4 notranslate">
+                  <span id="time">180</span>
+                  <span> / 180 sec</span>
                 </div>
                 <div class="d-flex flex-wrap">
                   <button class="btn btn-secondary btn-sm"
@@ -185,7 +185,11 @@ sudo apt install festival speech-dispatcher-festival</code></pre>
             <tbody id="result"></tbody>
           </table>
           <div class="text-center py-3">
-            <h2>クリア数: <span id="score"></span> / <span id="problemCount"></span></h2>
+            <h2>スコア:
+              <span class="ms-1 notranslate">
+                <span id="score"></span><span class="mx-1">/</span><span id="problemCount"></span>
+              </span>
+            </h2>
           </div>
         </div>
         <div id="playPanel">
@@ -200,7 +204,7 @@ sudo apt install festival speech-dispatcher-festival</code></pre>
                 </div>
                 <div class="card-body">
                   <img alt="voice" class="voice" src="/gratalk/voice.svg" width="16" height="16" role="button">
-                  <span>Let's have an English conversation with me!</span>
+                  <span class="notranslate">Let's have an English conversation with me!</span>
                 </div>
               </div>
               <div class="card">
@@ -209,7 +213,7 @@ sudo apt install festival speech-dispatcher-festival</code></pre>
                 </div>
                 <div class="card-body">
                   <img alt="voice" class="voice" src="/gratalk/voice.svg" width="16" height="16" role="button">
-                  <span>How much can you talk in 3 minutes?</span>
+                  <span class="notranslate">How much can you talk in 3 minutes?</span>
                 </div>
               </div>
               <div class="card">
@@ -218,14 +222,15 @@ sudo apt install festival speech-dispatcher-festival</code></pre>
                 </div>
                 <div class="card-body">
                   <img alt="voice" class="voice" src="/gratalk/voice.svg" width="16" height="16" role="button">
-                  <span>EASY mode is recommended for first-time users.</span>
+                  <span class="notranslate">EASY mode is recommended for first-time users.</span>
                 </div>
               </div>
             </div>
           </div>
         </div>
         <div id="recognitionPanel" class="text-center pt-4">
-          <span id="reply" class="pe-3 h5">英語でまねよう</span>
+          <span id="replyPlease" class="me-2 h5">英語でまねよう</span>
+          <span id="reply" class="me-2 h5 notranslate"></span>
           <button id="startVoiceInput" title="音声入力を開始する" class="btn btn-outline-secondary rounded-pill">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000" width="64" height="64"><path d="M0 0h24v24H0z" fill="none"></path><path d="M12 14c1.66.0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"></path></svg>
           </button>
@@ -240,8 +245,8 @@ sudo apt install festival speech-dispatcher-festival</code></pre>
         <label>サポート状況 (2022):</label>
         <table class="table table-sm table-striped w-auto m-auto text-nowrap">
           <tbody>
-            <tr><th></th><th>Chrome</th><th>Edge</th><th>Safari</th><th>Firefox</th></tr>
-            <tr><td>音声認識</td><td>○</td><td>×</td><td>×</td><td>×</td></tr>
+            <tr class="notranslate"><th></th><th>Chrome</th><th>Edge</th><th>Safari</th><th>Firefox</th></tr>
+            <tr><td>音声認識</td><td>⭕</td><td>❌</td><td>❌</td><td>❌</td></tr>
           </tbody>
         </table>
       </div>
@@ -259,12 +264,11 @@ sudo apt install festival speech-dispatcher-festival</code></pre>
         <div class="card-header">
           <span class="ja"></span>
         </div>
-        <div class="card-body">
+        <div class="card-body notranslate">
           <div>
             <img class="voice" src="/gratalk/voice.svg" width="16" height="16" role="button">
-            <span class="en"></span>
+            <span class="en notranslate"></span>
           </div>
-          <div class="answer"></div>
         </div>
       </div>
     </template>
