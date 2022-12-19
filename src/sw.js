@@ -1,4 +1,4 @@
-var CACHE_NAME = "2022-12-11 14:15";
+var CACHE_NAME = "2022-12-20 00:00";
 var urlsToCache = [
   "/gratalk/",
   "/gratalk/index.js",
