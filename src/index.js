@@ -198,6 +198,7 @@ customElements.define(
 
 function countdown() {
   correctCount = errorCount = 0;
+  startButton.disabled = true;
   playPanel.classList.add("d-none");
   countPanel.hidden = false;
   scorePanel.hidden = true;
@@ -214,6 +215,7 @@ function countdown() {
       counter.textContent = t;
     } else {
       clearInterval(timer);
+      startButton.disabled = false;
       countPanel.hidden = true;
       scorePanel.hidden = true;
       playPanel.classList.remove("d-none");
