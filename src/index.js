@@ -173,19 +173,6 @@ function nextProblem() {
   speak(roma);
 }
 
-function replay() {
-  clearInterval(typeTimer);
-  initTime();
-  loadProblems();
-  countdown();
-  correctCount = errorCount = 0;
-  countPanel.hidden = false;
-  scorePanel.hidden = true;
-  while (resultNode.firstChild) {
-    resultNode.removeChild(resultNode.firstChild);
-  }
-}
-
 function getRandomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -214,6 +201,9 @@ function countdown() {
   playPanel.classList.add("d-none");
   countPanel.hidden = false;
   scorePanel.hidden = true;
+  while (resultNode.firstChild) {
+    resultNode.removeChild(resultNode.firstChild);
+  }
   counter.textContent = 3;
   const timer = setInterval(function () {
     const counter = document.getElementById("counter");
@@ -250,8 +240,6 @@ function skipSentence() {
 
 function startGame() {
   clearInterval(typeTimer);
-  startButton.removeEventListener("click", startGame);
-  startButton.addEventListener("click", replay);
   initTime();
   loadProblems();
   countdown();
