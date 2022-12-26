@@ -198,9 +198,9 @@ customElements.define(
 
 function countdown() {
   correctCount = errorCount = 0;
-  startButton.disabled = true;
-  playPanel.classList.add("d-none");
   countPanel.classList.remove("d-none");
+  infoPanel.classList.add("d-none");
+  playPanel.classList.add("d-none");
   scorePanel.classList.add("d-none");
   while (resultNode.firstChild) {
     resultNode.removeChild(resultNode.firstChild);
@@ -215,9 +215,8 @@ function countdown() {
       counter.textContent = t;
     } else {
       clearInterval(timer);
-      startButton.disabled = false;
       countPanel.classList.add("d-none");
-      scorePanel.classList.add("d-none");
+      infoPanel.classList.remove("d-none");
       playPanel.classList.remove("d-none");
       nextProblem();
       startTypeTimer();
