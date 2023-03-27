@@ -1,13 +1,11 @@
-var CACHE_NAME = "2023-02-16 09:45";
+var CACHE_NAME = "2023-03-28 00:40";
 var urlsToCache = [
   "/gratalk/",
   "/gratalk/index.js",
   "/gratalk/words.lst",
   "/gratalk/mp3/bgm.mp3",
-  "/gratalk/mp3/cat.mp3",
-  "/gratalk/mp3/correct.mp3",
+  "/gratalk/mp3/correct3.mp3",
   "/gratalk/mp3/end.mp3",
-  "/gratalk/mp3/keyboard.mp3",
   "/gratalk/voice.svg",
   "https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css",
 ];
