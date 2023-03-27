@@ -204,8 +204,8 @@ customElements.define(
       const template = document.getElementById("talk-box").content.cloneNode(
         true,
       );
-      template.querySelector(".voice").onclick = function () {
-        const text = this.nextElementSibling.textContent;
+      template.querySelector(".voice").onclick = (event) => {
+        const text = event.target.nextElementSibling.textContent;
         speak(text);
       };
       this.attachShadow({ mode: "open" }).appendChild(template);
@@ -444,11 +444,11 @@ function stopVoiceInput() {
   voiceInput.stop();
 }
 
-function changeMode() {
-  if (this.textContent == "EASY") {
-    this.textContent = "HARD";
+function changeMode(event) {
+  if (event.target.textContent == "EASY") {
+    event.target.textContent = "HARD";
   } else {
-    this.textContent = "EASY";
+    event.target.textContent = "EASY";
   }
 }
 
@@ -465,8 +465,8 @@ function loadWhiteList() {
 loadWhiteList();
 
 [...document.getElementsByClassName("voice")].forEach((e) => {
-  e.onclick = function () {
-    const en = this.nextElementSibling.textContent;
+  e.onclick = (event) => {
+    const en = event.target.nextElementSibling.textContent;
     speak(en);
   };
 });
