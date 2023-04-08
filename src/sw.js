@@ -7,6 +7,9 @@ var urlsToCache = [
   "/gratalk/mp3/correct3.mp3",
   "/gratalk/mp3/end.mp3",
   "/gratalk/voice.svg",
+  "/gratalk/img/cat8.webp",
+  "/gratalk/img/cat51.webp",
+  "/gratalk/img/cat52.webp",
   "https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css",
 ];
 
