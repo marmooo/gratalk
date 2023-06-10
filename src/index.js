@@ -6,7 +6,7 @@ const scorePanel = document.getElementById("scorePanel");
 const startButton = document.getElementById("startButton");
 const resultNode = document.getElementById("result");
 const gameTime = 180;
-let typeTimer;
+let gameTimer;
 // https://dova-s.jp/bgm/play14775.html
 const bgm = new Audio("mp3/bgm.mp3");
 bgm.volume = 0.1;
@@ -257,7 +257,7 @@ function skipSentence() {
 }
 
 function startGame() {
-  clearInterval(typeTimer);
+  clearInterval(gameTimer);
   initTime();
   loadProblems();
   countdown();
@@ -265,12 +265,12 @@ function startGame() {
 
 function startTypeTimer() {
   const timeNode = document.getElementById("time");
-  typeTimer = setInterval(function () {
+  gameTimer = setInterval(function () {
     const t = parseInt(timeNode.textContent);
     if (t > 0) {
       timeNode.textContent = t - 1;
     } else {
-      clearInterval(typeTimer);
+      clearInterval(gameTimer);
       bgm.pause();
       playAudio("end");
       playPanel.classList.add("d-none");
