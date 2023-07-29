@@ -10,7 +10,7 @@ const urlsToCache = [
   "/gratalk/img/cat8.webp",
   "/gratalk/img/cat53.webp",
   "/gratalk/img/cat54.webp",
-  "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js",
+  "https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js",
 ];
 
 self.addEventListener("install", (event) => {
