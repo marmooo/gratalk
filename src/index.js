@@ -24,8 +24,8 @@ let englishVoices = [];
 const voiceInput = setVoiceInput();
 const audioContext = new AudioContext();
 const audioBufferCache = {};
-loadAudio("end", "mp3/end.mp3"),
-loadAudio("corret", "mp3/correct3.mp3"),
+loadAudio("end", "mp3/end.mp3");
+loadAudio("corret", "mp3/correct3.mp3");
 loadConfig();
 
 function loadConfig() {
