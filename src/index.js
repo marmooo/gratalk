@@ -415,7 +415,7 @@ function setVoiceInput() {
           const img = document.getElementById("cat");
           img.src = "img/cat" + getRandomInt(0, 74) + ".webp";
         }
-        playAudio("correct");
+        playAudio("correct", 0.3);
         nextProblem();
       }
       replyPlease.classList.add("d-none");
