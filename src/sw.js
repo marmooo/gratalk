@@ -1,4 +1,4 @@
-const CACHE_NAME = "2023-12-23 18:25";
+const CACHE_NAME = "2024-02-25 09:42";
 const urlsToCache = [
   "/gratalk/",
   "/gratalk/index.js",
@@ -10,7 +10,7 @@ const urlsToCache = [
   "/gratalk/img/cat8.webp",
   "/gratalk/img/cat53.webp",
   "/gratalk/img/cat54.webp",
-  "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js",
+  "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
 ];
 
 self.addEventListener("install", (event) => {
