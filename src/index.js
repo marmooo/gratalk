@@ -480,6 +480,7 @@ function getGlobalCSS() {
 
 loadWhiteList();
 
+new Collapse(document.getElementById("courseOption"), { toggle: false });
 const globalCSS = getGlobalCSS();
 [...document.getElementsByClassName("voice")].forEach((e) => {
   e.onclick = (event) => {
