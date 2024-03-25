@@ -1,3 +1,6 @@
+import { Collapse } from "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/+esm";
+import { default as numberToWords } from "https://cdn.jsdelivr.net/npm/number-to-words@1.2.4/+esm";
+
 const replyPlease = document.getElementById("replyPlease");
 const reply = document.getElementById("reply");
 const playPanel = document.getElementById("playPanel");
@@ -477,6 +480,7 @@ function getGlobalCSS() {
 
 loadWhiteList();
 
+new Collapse(document.getElementById("courseOption"), { toggle: false });
 const globalCSS = getGlobalCSS();
 [...document.getElementsByClassName("voice")].forEach((e) => {
   e.onclick = (event) => {
