@@ -1,4 +1,4 @@
-const CACHE_NAME = "2024-03-25 10:00";
+const CACHE_NAME = "2024-03-25 10:20";
 const urlsToCache = [
   "/gratalk/",
   "/gratalk/index.js",
