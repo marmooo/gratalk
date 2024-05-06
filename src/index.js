@@ -219,6 +219,7 @@ customElements.define("talk-box", TalkBox);
 
 function countdown() {
   correctCount = errorCount = 0;
+  if (localStorage.getItem("bgm") == 1) bgm.play();
   countPanel.classList.remove("d-none");
   infoPanel.classList.add("d-none");
   playPanel.classList.add("d-none");
@@ -241,9 +242,6 @@ function countdown() {
       playPanel.classList.remove("d-none");
       nextProblem();
       startTypeTimer();
-      if (localStorage.getItem("bgm") == 1) {
-        bgm.play();
-      }
     }
   }, 1000);
 }
