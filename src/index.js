@@ -1,4 +1,4 @@
-import { Collapse } from "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/+esm";
+import { Collapse } from "https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/+esm";
 import { default as numberToWords } from "https://cdn.jsdelivr.net/npm/number-to-words@1.2.4/+esm";
 
 const replyPlease = document.getElementById("replyPlease");
