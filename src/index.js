@@ -185,19 +185,15 @@ function speak(text) {
   speechSynthesis.speak(msg);
 }
 
-function loadProblems() {
+async function loadProblems() {
   const course = document.getElementById("courseOption").radio.value;
-  fetch(`data/${course}.tsv`)
-    .then((response) => response.text())
-    .then((tsv) => {
-      problems = tsv.trimEnd().split("\n").map((line) => {
-        const [en, jaStr] = line.split("\t");
-        const ja = jaStr.split("|").slice(0, 3).join("\n");
-        return { en: en, ja: ja };
-      });
-    }).catch((err) => {
-      console.error(err);
-    });
+  const response = await fetch(`data/${course}.tsv`);
+  const tsv = await response.text();
+  problems = tsv.trimEnd().split("\n").map((line) => {
+    const [en, jaStr] = line.split("\t");
+    const ja = jaStr.split("|").slice(0, 3).join("\n");
+    return { en: en, ja: ja };
+  });
 }
 
 function nextProblem() {
@@ -279,10 +275,10 @@ function skipSentence() {
   }
 }
 
-function startGame() {
+async function startGame() {
   clearInterval(gameTimer);
   initTime();
-  loadProblems();
+  await loadProblems();
   countdown();
 }
 
@@ -475,14 +471,12 @@ function changeMode(event) {
   }
 }
 
-function loadWhiteList() {
-  fetch(`words.lst`)
-    .then((response) => response.text())
-    .then((text) => {
-      text.trimEnd().split("\n").forEach((word) => {
-        whiteList.set(word, true);
-      });
-    });
+async function loadWhiteList() {
+  const response = await fetch(`words.lst`);
+  const text = await response.text();
+  text.trimEnd().split("\n").forEach((word) => {
+    whiteList.set(word, true);
+  });
 }
 
 function getGlobalCSS() {
@@ -497,7 +491,7 @@ function getGlobalCSS() {
   return css;
 }
 
-loadWhiteList();
+await loadWhiteList();
 
 new Collapse(document.getElementById("courseOption"), { toggle: false });
 const globalCSS = getGlobalCSS();
