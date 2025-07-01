@@ -450,7 +450,7 @@ function setVoiceInput() {
 }
 
 function startVoiceInput() {
-  voiceStoppede = false;
+  voiceStopped = false;
   document.getElementById("startVoiceInput").classList.add("d-none");
   document.getElementById("stopVoiceInput").classList.remove("d-none");
   replyPlease.classList.remove("d-none");
