@@ -25,7 +25,9 @@ whiteList.set("mt.", true);
 let problems = [];
 let englishVoices = [];
 let audioContext;
+let voiceStopped = false;
 const audioBufferCache = {};
+loadVoices();
 const voiceInput = setVoiceInput();
 loadConfig();
 
@@ -175,7 +177,6 @@ function loadVoices() {
       .filter((voice) => !jokeVoices.includes(voice.voiceURI));
   });
 }
-loadVoices();
 
 function speak(text) {
   speechSynthesis.cancel();
@@ -213,6 +214,7 @@ function nextProblem() {
   newNode.classList.add("text-primary");
   answer = roma;
   speak(roma);
+  startVoiceInput();
 }
 
 function getRandomInt(min, max) {
@@ -262,7 +264,7 @@ function countdown() {
       infoPanel.classList.remove("d-none");
       playPanel.classList.remove("d-none");
       nextProblem();
-      startTypeTimer();
+      startGameTimer();
     }
   }, 1000);
 }
@@ -286,7 +288,7 @@ async function startGame() {
   countdown();
 }
 
-function startTypeTimer() {
+function startGameTimer() {
   const timeNode = document.getElementById("time");
   gameTimer = setInterval(function () {
     const t = parseInt(timeNode.textContent);
@@ -296,10 +298,8 @@ function startTypeTimer() {
       clearInterval(gameTimer);
       bgm.pause();
       playAudio("end");
-      playPanel.classList.add("d-none");
-      countPanel.classList.add("d-none");
-      scorePanel.classList.remove("d-none");
       scoring();
+      stopVoiceInput();
     }
   }, 1000);
 }
@@ -309,6 +309,9 @@ function initTime() {
 }
 
 function scoring() {
+  playPanel.classList.add("d-none");
+  countPanel.classList.add("d-none");
+  scorePanel.classList.remove("d-none");
   document.getElementById("score").textContent = correctCount;
   document.getElementById("problemCount").textContent = correctCount +
     errorCount;
@@ -420,11 +423,9 @@ function setVoiceInput() {
     // voiceInput.interimResults = true;
     voiceInput.continuous = true;
 
-    voiceInput.onstart = voiceInputOnStart;
     voiceInput.onend = () => {
-      if (!speechSynthesis.speaking) {
-        voiceInput.start();
-      }
+      if (voiceStopped) return;
+      voiceInput.start();
     };
     voiceInput.onresult = (event) => {
       const replyText = event.results[0][0].transcript;
@@ -439,32 +440,36 @@ function setVoiceInput() {
         }
         playAudio("correct", 0.3);
         nextProblem();
+        replyPlease.classList.remove("d-none");
+        reply.classList.add("d-none");
+      } else {
+        replyPlease.classList.add("d-none");
+        reply.classList.remove("d-none");
       }
-      replyPlease.classList.add("d-none");
-      reply.classList.remove("d-none");
-      voiceInput.stop();
     };
     return voiceInput;
   }
 }
 
-function voiceInputOnStart() {
+function startVoiceInput() {
+  voiceStoppede = false;
   document.getElementById("startVoiceInput").classList.add("d-none");
   document.getElementById("stopVoiceInput").classList.remove("d-none");
-}
-
-function voiceInputOnStop() {
-  document.getElementById("startVoiceInput").classList.remove("d-none");
-  document.getElementById("stopVoiceInput").classList.add("d-none");
-}
-
-function startVoiceInput() {
-  voiceInput.stop();
+  replyPlease.classList.remove("d-none");
+  reply.classList.add("d-none");
+  try {
+    voiceInput.start();
+  } catch {
+    // continue regardless of error
+  }
 }
 
 function stopVoiceInput() {
-  voiceInputOnStop();
-  voiceInput.stop();
+  document.getElementById("startVoiceInput").classList.remove("d-none");
+  document.getElementById("stopVoiceInput").classList.add("d-none");
+  replyPlease.classList.remove("d-none");
+  reply.classList.add("d-none");
+  voiceInput.abort();
 }
 
 function changeMode(event) {
