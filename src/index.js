@@ -8,6 +8,7 @@ const infoPanel = document.getElementById("infoPanel");
 const countPanel = document.getElementById("countPanel");
 const scorePanel = document.getElementById("scorePanel");
 const startButton = document.getElementById("startButton");
+const courseOption = document.getElementById("courseOption");
 const resultNode = document.getElementById("result");
 const gameTime = 180;
 let gameTimer;
@@ -187,7 +188,7 @@ function speak(text) {
 }
 
 async function loadProblems() {
-  const course = document.getElementById("courseOption").radio.value;
+  const course = courseOption.radio.value;
   const response = await fetch(`data/${course}.tsv`);
   const tsv = await response.text();
   problems = tsv.trimEnd().split("\n").map((line) => {
@@ -237,7 +238,7 @@ class TalkBox extends HTMLElement {
 customElements.define("talk-box", TalkBox);
 
 function countdown() {
-  speak(""); // unlock
+  speak("Ready"); // unlock
   correctCount = errorCount = 0;
   if (localStorage.getItem("bgm") == 1) bgm.play();
   countPanel.classList.remove("d-none");
@@ -278,10 +279,9 @@ function skipSentence() {
   }
 }
 
-async function startGame() {
+function startGame() {
   clearInterval(gameTimer);
   initTime();
-  await loadProblems();
   countdown();
 }
 
@@ -496,8 +496,9 @@ function getGlobalCSS() {
 }
 
 await loadWhiteList();
+await loadProblems();
 
-new Collapse(document.getElementById("courseOption"), { toggle: false });
+new Collapse(courseOption, { toggle: false });
 const globalCSS = getGlobalCSS();
 [...document.getElementsByClassName("voice")].forEach((e) => {
   e.onclick = (event) => {
@@ -512,5 +513,10 @@ document.getElementById("toggleDarkMode").onclick = toggleDarkMode;
 document.getElementById("toggleBGM").onclick = toggleBGM;
 document.getElementById("startVoiceInput").onclick = startVoiceInput;
 document.getElementById("stopVoiceInput").onclick = stopVoiceInput;
+courseOption.addEventListener("change", async () => {
+  initTime();
+  clearInterval(gameTimer);
+  await loadProblems();
+});
 document.addEventListener("click", unlockAudio, { once: true });
 document.addEventListener("keydown", unlockAudio, { once: true });
