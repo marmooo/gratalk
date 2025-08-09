@@ -1,8 +1,7 @@
-const CACHE_NAME = "2025-07-30 00:00";
+const CACHE_NAME = "2025-08-10 00:00";
 const urlsToCache = [
   "/gratalk/",
   "/gratalk/index.js",
-  "/gratalk/words.lst",
   "/gratalk/mp3/bgm.mp3",
   "/gratalk/mp3/correct3.mp3",
   "/gratalk/mp3/end.mp3",
