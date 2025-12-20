@@ -10,6 +10,6 @@ bash build.sh
 
 ## Attribution
 
-`src/favicon/favicon.svg` is modified
+`src/favicon/favicon.svg` is created from
 [Poppins](https://fonts.google.com/specimen/Poppins) lincesed under the
 [SIL Open Font License (OFL) v1.1](http://scripts.sil.org/OFL)
